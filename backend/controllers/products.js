@@ -76,3 +76,25 @@ exports.deleteProduct = async (req, res) => {
     });
   }
 };
+
+exports.getProductById = async (req, res) => {
+  try {
+    let product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.json(404, {
+        error: "Product not found",
+        success: false,
+      });
+    }
+    return res.json(200, {
+      success: true,
+      message: "Product details fetched successfully",
+      product,
+    });
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};
