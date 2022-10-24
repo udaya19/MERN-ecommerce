@@ -1,7 +1,9 @@
 const Product = require("../models/products");
+const ApiFeatures = require("../utils/apiFeatures");
 exports.getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find({});
+    const apiFeatures = new ApiFeatures(Product.find(), req.query).search();
+    const products = await apiFeatures.query;
     return res.json(200, {
       message: "Products fetched successfully",
       success: true,
