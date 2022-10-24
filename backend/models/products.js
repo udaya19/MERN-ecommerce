@@ -3,7 +3,7 @@ const productsSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      requried: [true, "Please enter product name`"],
+      required: [true, "Please enter product name`"],
       trim: true,
     },
     description: {
@@ -52,7 +52,7 @@ const productsSchema = new mongoose.Schema(
         },
         rating: {
           type: Number,
-          requried: true,
+          required: true,
         },
         comment: {
           type: String,
