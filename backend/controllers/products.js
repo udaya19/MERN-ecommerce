@@ -30,3 +30,49 @@ exports.createProduct = async (req, res) => {
     });
   }
 };
+
+exports.updateProduct = async (req, res) => {
+  try {
+    let product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.json(404, {
+        error: "Product not found",
+        success: false,
+      });
+    }
+    product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    return res.json(200, {
+      success: true,
+      message: "Product updated successfully",
+    });
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+exports.deleteProduct = async (req, res) => {
+  try {
+    let product = await Product.findById(req.params.id);
+    if (!product) {
+      return res.json(404, {
+        error: "Product not found",
+        success: false,
+      });
+    }
+    await product.remove();
+    return res.json(200, {
+      success: true,
+      message: "Product deleted successfully",
+    });
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};
