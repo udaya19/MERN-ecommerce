@@ -60,3 +60,18 @@ exports.loginUser = async (req, res) => {
     });
   }
 };
+
+exports.logoutUser = async (req, res) => {
+  try {
+    res.clearCookie("token");
+    return res.json(200, {
+      success: true,
+      message: "Logout successfull",
+    });
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};
