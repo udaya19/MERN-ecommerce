@@ -12,12 +12,15 @@ exports.isAuthenticated = async (req, res, next) => {
   const user = await User.findById(decodedData.id);
   console.log(user);
   req.user = user;
-  if (user.role === "admin") {
-    next();
-  } else {
-    return res.json(403, {
-      error: "Admin access denied",
-      success: false,
+  next();
+};
+
+exports.isAdmin = async (req, res, next) => {
+  const { user } = req;
+  if (user.role !== "admin") {
+    return res.json(401, {
+      error: "Unauthorized access",
     });
   }
+  next();
 };
