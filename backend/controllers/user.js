@@ -147,3 +147,18 @@ exports.resetPassword = async (req, res) => {
     });
   }
 };
+
+exports.getUserDetails = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    return res.json(200, {
+      success: true,
+      user,
+    });
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};
