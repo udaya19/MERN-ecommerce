@@ -162,3 +162,34 @@ exports.getUserDetails = async (req, res) => {
     });
   }
 };
+
+exports.updatePassword = async (req, res) => {
+  try {
+    const user = await User.findById(req.user?.id).select("+password");
+    const { oldPassword, newPassword, confirmNewPassword } = req.body;
+    const isMatched = await user.comparePassword(oldPassword);
+    if (!isMatched) {
+      return res.json(400, {
+        success: false,
+        error: "Invalid password",
+      });
+    }
+    if (newPassword !== confirmNewPassword) {
+      return res.json(400, {
+        success: false,
+        error: "Confirm password and password must be the same",
+      });
+    }
+    user.password = newPassword;
+    await user.save();
+    return res.json(200, {
+      success: true,
+      message: "Password updated succesfully",
+    });
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};
