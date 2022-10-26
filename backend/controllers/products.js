@@ -129,10 +129,10 @@ exports.createProductReview = async (req, res) => {
       product.numOfReviews = product.reviews.length;
     }
     let avg = 0;
-    product.ratings =
-      product.reviews.forEach((rev) => {
-        avg += rev.rating;
-      }) / product.reviews.length;
+    product.reviews.forEach((rev) => {
+      avg += rev.rating;
+    });
+    product.ratings = avg / product.reviews.length;
     await product.save();
     return res.json(200, {
       success: true,
