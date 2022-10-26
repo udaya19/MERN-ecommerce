@@ -104,3 +104,44 @@ exports.getProductById = async (req, res) => {
     });
   }
 };
+
+exports.createProductReview = async (req, res) => {
+  try {
+    const { rating, comment } = req.body;
+    const review = {
+      user: req.user._id,
+      name: req.user.name,
+      rating: Number(rating),
+      comment,
+    };
+    const product = await Product.findById(req.params.id);
+    const isReviewed = product.reviews.find(
+      (rev) => rev.user.toString() === req.user._id.toString()
+    );
+    if (isReviewed) {
+      product.reviews.forEach((rev) => {
+        if (rev.user.toString() === req.user._id.toString()) {
+          (rev.rating = rating), (rev.comment = comment);
+        }
+      });
+    } else {
+      product.reviews.push(review);
+      product.numOfReviews = product.reviews.length;
+    }
+    let avg = 0;
+    product.ratings =
+      product.reviews.forEach((rev) => {
+        avg += rev.rating;
+      }) / product.reviews.length;
+    await product.save();
+    return res.json(200, {
+      success: true,
+      message: "Review added succesfully",
+    });
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};
