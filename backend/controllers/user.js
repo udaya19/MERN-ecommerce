@@ -215,3 +215,41 @@ exports.updateProfile = async (req, res) => {
     });
   }
 };
+//admin access
+exports.getAllUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    return res.json(200, {
+      success: true,
+      users,
+    });
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+//admin access
+exports.getSingleUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.json(404, {
+        success: false,
+        error: "User not found",
+      });
+    }
+    return res.json(200, {
+      success: true,
+      message: "User details fetched succesfully",
+      user,
+    });
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};
