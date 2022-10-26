@@ -145,3 +145,59 @@ exports.createProductReview = async (req, res) => {
     });
   }
 };
+
+exports.getProductReviews = async (req, res) => {
+  try {
+    const product = await Product.findById(req.query.id);
+    if (!product) {
+      return res.json(404, {
+        success: false,
+        message: "Product not found",
+      });
+    }
+    return res.json(200, {
+      success: true,
+      reviews: product.reviews,
+    });
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+exports.deleteReview = async (req, res) => {
+  try {
+    const product = await Product.findById(req.query.productId);
+    if (!product) {
+      return res.json(404, {
+        success: false,
+        message: "Product not found",
+      });
+    }
+    const reviews = product.reviews.filter(
+      (rev) => rev._id.toString() !== req.query.id.toString()
+    );
+    let avg = 0;
+    reviews.forEach((rev) => {
+      avg += rev.rating;
+    });
+    const ratings = avg / reviews.length;
+    const numOfReviews = reviews.length;
+    await Product.findByIdAndUpdate(
+      req.query.productId,
+      {
+        reviews,
+        ratings,
+        numOfReviews,
+      },
+      { new: true }
+    );
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};

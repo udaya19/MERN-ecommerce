@@ -32,4 +32,10 @@ router.post(
   isAuthenticated,
   productsController.createProductReview
 );
+router.post(
+  "/get-product-reviews",
+  isAuthenticated,
+  isAdmin,
+  productsController.getProductReviews
+);
 module.exports = router;
