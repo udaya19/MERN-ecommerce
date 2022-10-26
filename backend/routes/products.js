@@ -9,12 +9,28 @@ router.get(
   isAdmin,
   productsController.getAllProducts
 );
-router.post("/create", isAuthenticated, productsController.createProduct);
-router.post("/update/:id", isAuthenticated, productsController.updateProduct);
-router.delete("/delete/:id", isAuthenticated, productsController.deleteProduct);
+router.post(
+  "/create",
+  isAuthenticated,
+  isAdmin,
+  productsController.createProduct
+);
+router.post(
+  "/update/:id",
+  isAuthenticated,
+  isAdmin,
+  productsController.updateProduct
+);
+router.delete(
+  "/delete/:id",
+  isAuthenticated,
+  isAdmin,
+  productsController.deleteProduct
+);
 router.post(
   "/get-product-by-id/:id",
   isAuthenticated,
+  isAdmin,
   productsController.getProductById
 );
 module.exports = router;
