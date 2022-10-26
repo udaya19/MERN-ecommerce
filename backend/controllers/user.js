@@ -253,3 +253,50 @@ exports.getSingleUser = async (req, res) => {
     });
   }
 };
+
+//admin access
+exports.updateUserRole = async (req, res) => {
+  try {
+    const newUserData = {
+      name: req.body.name,
+      email: req.body.email,
+      role: req.body.role,
+    };
+    const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+      new: true,
+    });
+    res.json(200, {
+      success: true,
+      user,
+      message: "User updated succesfully",
+    });
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};
+
+//admin access
+exports.deleteUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.json(404, {
+        success: false,
+        error: "User not found",
+      });
+    }
+    await user.remove();
+    return res.json(200, {
+      success: true,
+      message: "User deleted succesfully",
+    });
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};

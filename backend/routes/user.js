@@ -17,4 +17,22 @@ router.post(
   isAdmin,
   userController.getSingleUser
 );
+router.post(
+  "/update-user-role",
+  isAuthenticated,
+  isAdmin,
+  userController.updateUserRole
+);
+router.post(
+  "/update-user-role/:id",
+  isAuthenticated,
+  isAdmin,
+  userController.updateUserRole
+);
+router.post(
+  "/delete-user/:id",
+  isAuthenticated,
+  isAdmin,
+  userController.deleteUser
+);
 module.exports = router;
