@@ -193,3 +193,25 @@ exports.updatePassword = async (req, res) => {
     });
   }
 };
+
+exports.updateProfile = async (req, res) => {
+  try {
+    const newUserData = {
+      name: req.body.name,
+      email: req.body.email,
+    };
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+      new: true,
+    });
+    res.json(200, {
+      success: true,
+      user,
+      message: "User updated succesfully",
+    });
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};

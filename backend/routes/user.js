@@ -9,4 +9,5 @@ router.post("/forgot-password", userController.forgotPassword);
 router.post("/password/reset/:token", userController.resetPassword);
 router.get("/me", isAuthenticated, userController.getUserDetails);
 router.post("/update/password", isAuthenticated, userController.updatePassword);
+router.post("/update-profile", isAuthenticated, userController.updateProfile);
 module.exports = router;
