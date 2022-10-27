@@ -80,3 +80,24 @@ exports.getOrderOfLoggedInUser = async (req, res) => {
     });
   }
 };
+
+//admin access
+exports.getAllOrders = async (req, res) => {
+  try {
+    const orders = await Order.find();
+    let totalAmount = 0;
+    orders.forEach((order) => {
+      totalAmount += order.totalPrice;
+    });
+    return res.status(200).json({
+      success: true,
+      totalAmount,
+      orders,
+    });
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};

@@ -14,4 +14,10 @@ router.get(
   isAuthenticated,
   orderController.getOrderOfLoggedInUser
 );
+router.get(
+  "/all-orders",
+  isAuthenticated,
+  isAdmin,
+  orderController.getAllOrders
+);
 module.exports = router;
