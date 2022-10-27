@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/api/users", require("./routes/user"));
 app.use("/api/products", require("./routes/products"));
+app.use("/api/orders", require("./routes/order"));
 const port = process.env.PORT;
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
