@@ -20,4 +20,16 @@ router.get(
   isAdmin,
   orderController.getAllOrders
 );
+router.post(
+  "/update-order/:id",
+  isAuthenticated,
+  isAdmin,
+  orderController.updateOrder
+);
+router.post(
+  "/delete-order/:id",
+  isAuthenticated,
+  isAdmin,
+  orderController.deleteOrder
+);
 module.exports = router;
