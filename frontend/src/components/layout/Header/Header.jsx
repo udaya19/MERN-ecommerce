@@ -18,36 +18,36 @@ const Header = ({ isAuthenticated = false }) => {
         </Link>
         <ul>
           <li>
-            <Link href="/">Home</Link>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <Link href="/product">Product</Link>
+            <Link to="/product">Product</Link>
           </li>
           <li>
-            <Link href="/contact">Contact</Link>
+            <Link to="/contact">Contact</Link>
           </li>
           <li>
-            <Link href="/about">About</Link>
+            <Link to="/about">About</Link>
           </li>
           <li>
             {isAuthenticated && (
-              <Link href="/cart">
+              <Link to="/cart">
                 <AiOutlineShoppingCart />
               </Link>
             )}
           </li>
           <li>
-            <Link href="/">
+            <Link to="/">
               <AiOutlineSearch />
             </Link>
           </li>
           <li>
             {isAuthenticated ? (
-              <Link href="/">
+              <Link to="/">
                 <AiOutlineLogout />
               </Link>
             ) : (
-              <Link href="/signup">
+              <Link to="/signup">
                 <AiOutlineLogin />
               </Link>
             )}
