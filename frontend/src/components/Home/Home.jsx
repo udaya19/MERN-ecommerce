@@ -7,6 +7,7 @@ import {
   getProductsRequest,
   getProductsSuccess,
 } from "../../redux/productSlice";
+import Loader from "../layout/Loader/Loader";
 import MetaData from "../layout/MetaData";
 import "./Home.css";
 import Product from "./Product";
@@ -34,7 +35,7 @@ const Home = () => {
   return (
     <>
       {loading ? (
-        "loading"
+        <Loader />
       ) : (
         <div>
           <MetaData title="E-commerce" />
