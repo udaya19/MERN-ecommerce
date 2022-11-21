@@ -4,25 +4,6 @@ const initalState = {
   loading: false,
   error: null,
 };
-// const productSlice = createSlice({
-//   name: "products",
-//   initalState,
-//   reducers: {
-//     getProductsRequest: (state) => {
-//       state.loading = true;
-//       state.products = [];
-//     },
-//     getProductsSuccess: (state, action) => {
-//       state.loading = false;
-//       state.products = action.payload;
-//     },
-//     getProductsFail: (state, action) => {
-//       state.loading = false;
-//       state.error = action.payload;
-//     },
-//     clearError: (state) => ({ ...state, error: null }),
-//   },
-// });
 
 const productSlice = createSlice({
   name: "products",
