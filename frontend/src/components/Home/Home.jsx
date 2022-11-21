@@ -1,5 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { CgMouse } from "react-icons/cg";
+import { useDispatch } from "react-redux";
+import { getAllProducts } from "../../api/product";
+import {
+  getProductsFail,
+  getProductsRequest,
+  getProductsSuccess,
+} from "../../redux/productSlice";
 import MetaData from "../layout/MetaData";
 import "./Home.css";
 import Product from "./Product";
@@ -15,6 +22,21 @@ const Home = () => {
     ],
     _id: "uday",
   };
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const getProductInfo = async () => {
+      try {
+        dispatch(getProductsRequest());
+        const response = await getAllProducts();
+        dispatch(getProductsSuccess(response.products));
+        console.log(response.products);
+      } catch (error) {
+        console.log(error);
+        dispatch(getProductsFail(error.message));
+      }
+    };
+    getProductInfo();
+  }, [dispatch]);
   return (
     <div>
       <MetaData title="E-commerce" />
