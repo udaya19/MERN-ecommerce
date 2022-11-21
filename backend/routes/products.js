@@ -22,11 +22,7 @@ router.delete(
   isAdmin,
   productsController.deleteProduct
 );
-router.post(
-  "/get-product-by-id/:id",
-  isAuthenticated,
-  productsController.getProductById
-);
+router.post("/get-product-by-id/:id", productsController.getProductById);
 router.post(
   "/review/:id",
   isAuthenticated,

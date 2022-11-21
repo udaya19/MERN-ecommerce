@@ -11,7 +11,7 @@ export const getAllProducts = async () => {
 
 export const getProductDetails = async (id) => {
   try {
-    const response = apiInstance.post(`/get-product-by-id/${id}`);
+    const response = apiInstance.post(`/products/get-product-by-id/${id}`);
     return (await response).data;
   } catch (error) {
     return error.response.data;
