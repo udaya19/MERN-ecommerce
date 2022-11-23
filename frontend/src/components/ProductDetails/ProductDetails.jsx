@@ -4,6 +4,7 @@ import "./ProductDetails.css";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductDetails } from "../../api/product";
 import {
+  getProductDetailsFail,
   getProductDetailsRequest,
   getProductDetailsSuccess,
 } from "../../redux/productDetailsSlice";
@@ -11,6 +12,7 @@ import { useParams } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import ReviewCard from "./ReviewCard";
 import Loader from "../layout/Loader/Loader";
+import { message } from "antd";
 // import Loader from "../layout/Loader/Loader";
 
 const ProductDetails = () => {
@@ -32,9 +34,16 @@ const ProductDetails = () => {
       try {
         dispatch(getProductDetailsRequest());
         const response = await getProductDetails(params.id);
-        dispatch(getProductDetailsSuccess(response.product));
+        if (response.success) {
+          message.success(response.message);
+          dispatch(getProductDetailsSuccess(response.product));
+        } else {
+          message.error(response.error);
+          dispatch(getProductDetailsFail());
+        }
       } catch (err) {
-        console.log(error);
+        message.error(error.message);
+        dispatch(getProductDetailsFail());
       }
     };
     getDetailsOfProduct();

@@ -11,6 +11,7 @@ import Loader from "../layout/Loader/Loader";
 import MetaData from "../layout/MetaData";
 import "./Home.css";
 import Product from "./Product";
+import { message } from "antd";
 
 const Home = () => {
   //{
@@ -23,11 +24,16 @@ const Home = () => {
       try {
         dispatch(getProductsRequest());
         const response = await getAllProducts();
-        dispatch(getProductsSuccess(response.products));
-        console.log(response.products);
+        if (response.success) {
+          dispatch(getProductsSuccess(response.products));
+          message.success(response.message);
+        } else {
+          message.error(response.error);
+          dispatch(getProductsFail(error.message));
+        }
       } catch (err) {
-        console.log(error);
         dispatch(getProductsFail(error.message));
+        message.error(error.message);
       }
     };
     getProductInfo();
