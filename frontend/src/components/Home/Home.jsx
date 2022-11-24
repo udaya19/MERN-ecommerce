@@ -10,7 +10,7 @@ import {
 import Loader from "../layout/Loader/Loader";
 import MetaData from "../layout/MetaData";
 import "./Home.css";
-import Product from "./Product";
+import ProductCard from "./ProductCard";
 import { message } from "antd";
 
 const Home = () => {
@@ -57,7 +57,7 @@ const Home = () => {
           <h2 className="homeHeading">Featured Products</h2>
           <div className="container" id="container">
             {products &&
-              products.map((product) => <Product product={product} />)}
+              products.map((product) => <ProductCard product={product} />)}
           </div>
         </div>
       )}
