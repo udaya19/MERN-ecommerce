@@ -10,14 +10,17 @@ import {
 } from "../../redux/productSlice";
 import { message } from "antd";
 import ProductCard from "../Home/ProductCard";
-const Products = () => {
+import { useParams } from "react-router-dom";
+const Products = ({ match }) => {
   const { loading, error, products } = useSelector((state) => state.product);
   const dispatch = useDispatch();
+  const params = useParams();
+  const keyword = params.keyword;
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
         dispatch(getProductsRequest());
-        const response = await getAllProducts();
+        const response = await getAllProducts(keyword);
         if (response.success) {
           dispatch(getProductsSuccess(response.products));
           message.success(response.message);
@@ -31,7 +34,7 @@ const Products = () => {
       }
     };
     fetchAllProducts();
-  }, [dispatch, error]);
+  }, [dispatch, error, keyword]);
   return (
     <div>
       {loading ? (
