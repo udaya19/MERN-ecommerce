@@ -21,7 +21,7 @@ const Header = ({ isAuthenticated = false }) => {
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/product">Product</Link>
+            <Link to="/products">Products</Link>
           </li>
           <li>
             <Link to="/contact">Contact</Link>
@@ -37,7 +37,7 @@ const Header = ({ isAuthenticated = false }) => {
             )}
           </li>
           <li>
-            <Link to="/">
+            <Link to="/search">
               <AiOutlineSearch />
             </Link>
           </li>
