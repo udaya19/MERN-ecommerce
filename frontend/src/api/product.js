@@ -17,3 +17,14 @@ export const getProductDetails = async (id) => {
     return error.response.data;
   }
 };
+
+export const searchProduct = async (keyword) => {
+  try {
+    const response = apiInstance.get(
+      `/products/allProducts?keyword=${keyword}`
+    );
+    return (await response).data;
+  } catch (error) {
+    return error.response.data;
+  }
+};
