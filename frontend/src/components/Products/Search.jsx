@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 const Search = () => {
   const [keyword, setKeyword] = useState("");
-  // const [result, setResult] = useState([]);
   const navigate = useNavigate();
   const searchSubmitHandler = async (e) => {
     e.preventDefault();
@@ -23,13 +22,6 @@ const Search = () => {
             setKeyword(e.target.value);
           }}
         />
-        {/* {result.length > 1 ? (
-          <>
-            <ProductCard product={result} />
-          </>
-        ) : (
-          ""
-        )} */}
         <input type="submit" value="Search" />
       </form>
     </div>

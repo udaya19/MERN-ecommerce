@@ -3,6 +3,7 @@ const ApiFeatures = require("../utils/apiFeatures");
 exports.getAllProducts = async (req, res) => {
   try {
     const resultPerPage = 5;
+    const productsCount = await Product.countDocuments();
     const apiFeatures = new ApiFeatures(Product.find(), req.query)
       .search()
       .filter()
@@ -12,6 +13,8 @@ exports.getAllProducts = async (req, res) => {
       message: "Products fetched successfully",
       success: true,
       products,
+      productsCount,
+      resultPerPage,
     });
   } catch (error) {
     return res.json(500, {

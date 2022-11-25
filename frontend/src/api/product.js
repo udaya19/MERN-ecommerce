@@ -1,10 +1,8 @@
 import apiInstance from ".";
 
-export const getAllProducts = async (keyword) => {
+export const getAllProducts = async () => {
   try {
-    const response = apiInstance.get(
-      `/products/allProducts?keyword=${keyword}`
-    );
+    const response = apiInstance.get(`/products/allProducts`);
     return (await response).data;
   } catch (error) {
     return error.response.data;

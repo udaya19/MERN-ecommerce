@@ -3,6 +3,8 @@ const initalState = {
   products: null,
   loading: false,
   error: null,
+  productsCount: 0,
+  resultPerPage: 0,
 };
 
 const productSlice = createSlice({
@@ -16,6 +18,8 @@ const productSlice = createSlice({
     getProductsSuccess: (state, action) => {
       state.loading = false;
       state.products = action.payload;
+      state.productsCount = action.payload.productsCount;
+      state.resultPerPage = action.payload.resultPerPage;
     },
     getProductsFail: (state, action) => {
       state.loading = false;
