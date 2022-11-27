@@ -10,6 +10,7 @@ import {
 } from "../../redux/productSlice";
 import { message } from "antd";
 import ProductCard from "../Home/ProductCard";
+import MetaData from "../layout/MetaData";
 const Products = () => {
   const { loading, error, products } = useSelector((state) => state.product);
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ const Products = () => {
         <Loader />
       ) : (
         <>
+          <MetaData title="Products..." />
           <h2 className="productsHeading">Products</h2>
           <div className="products">
             {products &&
