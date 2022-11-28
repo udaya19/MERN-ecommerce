@@ -7,6 +7,7 @@ import ProductDetails from "./components/ProductDetails/ProductDetails";
 import Products from "./components/Products/Products";
 import Search from "./components/Products/Search";
 import ProductSearch from "./components/Products/ProductSearch";
+import LoginSignUp from "./components/User/LoginSignUp";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/products/:keyword" element={<ProductSearch />} />
         <Route path="/products" element={<Products />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/login" element={<LoginSignUp />} />
       </Routes>
       <Footer />
     </div>
