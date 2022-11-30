@@ -8,18 +8,42 @@ import Products from "./components/Products/Products";
 import Search from "./components/Products/Search";
 import ProductSearch from "./components/Products/ProductSearch";
 import LoginSignUp from "./components/User/LoginSignUp";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { loadUserRequest, loadUserSuccess } from "./redux/loadUser";
+import { loadUser } from "./api/user";
 
 function App() {
+  const { isAuthenticated } = useSelector((state) => state.loggedInUser);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        dispatch(loadUserRequest());
+        const response = await loadUser();
+        dispatch(loadUserSuccess(response));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUser();
+  }, [dispatch]);
   return (
     <div className="App">
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={isAuthenticated ? <Home /> : <LoginSignUp />}
+        />
         <Route path="/product/:id" element={<ProductDetails />} />
         <Route path="/products/:keyword" element={<ProductSearch />} />
         <Route path="/products" element={<Products />} />
         <Route path="/search" element={<Search />} />
-        <Route path="/login" element={<LoginSignUp />} />
+        <Route
+          path="/login"
+          element={isAuthenticated ? <Home /> : <LoginSignUp />}
+        />
       </Routes>
       <Footer />
     </div>
