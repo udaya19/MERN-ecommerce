@@ -4,6 +4,10 @@ import "./LoginSignUp.css";
 import { AiOutlineMail } from "react-icons/ai";
 import { BiLockOpen } from "react-icons/bi";
 import FaceIcon from "@mui/icons-material/Face";
+import { loginUser } from "../../api/user";
+import { useDispatch } from "react-redux";
+import { setUserRequest, setUserSuccess } from "../../redux/userSlice";
+import { useNavigate } from "react-router-dom";
 const LoginSignUp = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
@@ -12,6 +16,8 @@ const LoginSignUp = () => {
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { name, email, password } = { user };
   const [avatar, setAvatar] = useState("");
   const [avatarPreview, setAvatarPreview] = useState("");
@@ -32,7 +38,18 @@ const LoginSignUp = () => {
       loginTab.current.classList.add("shiftToLeft");
     }
   };
-  const loginSubmit = () => {};
+  const loginSubmit = async (e) => {
+    try {
+      e.preventDefault();
+      dispatch(setUserRequest());
+      const response = await loginUser(loginEmail, loginPassword);
+      console.log(response);
+      dispatch(setUserSuccess(response));
+      navigate("/");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const registerSubmit = (e) => {
     e.preventDefault();
     const myForm = new FormData();
