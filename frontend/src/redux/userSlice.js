@@ -18,9 +18,9 @@ const userSlice = createSlice({
     setUserSuccess: (state, action) => {
       state.loading = false;
       state.isAuthenticated = true;
-      state.user = action.payload.user;
-      console.log("Action payload:", action.payload);
-      localStorage.setItem("token", action.payload.token);
+      state.user = action.payload?.user;
+      console.log("Action payload:", action?.payload);
+      localStorage.setItem("token", action.payload?.token);
     },
     setUserFail: (state, action) => {
       state.loading = false;

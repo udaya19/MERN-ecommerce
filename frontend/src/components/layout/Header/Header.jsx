@@ -10,6 +10,10 @@ import {
 import "./Header.css";
 
 const Header = ({ isAuthenticated = false }) => {
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    window.location.reload(true);
+  };
   return (
     <div className="header">
       <nav>
@@ -37,13 +41,15 @@ const Header = ({ isAuthenticated = false }) => {
             )}
           </li>
           <li>
-            <Link to="/search">
-              <AiOutlineSearch />
-            </Link>
+            {isAuthenticated && (
+              <Link to="/search">
+                <AiOutlineSearch />
+              </Link>
+            )}
           </li>
           <li>
             {isAuthenticated ? (
-              <Link to="/">
+              <Link to="/" onClick={handleLogout}>
                 <AiOutlineLogout />
               </Link>
             ) : (

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
-import MetaData from "../layout/MetaData";
+// import MetaData from "../layout/MetaData";
 
 const ProductCard = ({ product }) => {
   const option = {
@@ -14,7 +14,7 @@ const ProductCard = ({ product }) => {
   };
   return (
     <div>
-      <MetaData title={`${product.name}`} />
+      {/* <MetaData title={`${product.name}`} /> */}
       <Link className="productCard" to={`/product/${product._id}`}>
         {/* <img src={product.images[0].url} alt="" /> */}
         <img

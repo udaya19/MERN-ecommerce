@@ -30,7 +30,7 @@ function App() {
   }, [dispatch]);
   return (
     <div className="App">
-      <Header />
+      <Header isAuthenticated={isAuthenticated} />
       <Routes>
         <Route
           path="/"

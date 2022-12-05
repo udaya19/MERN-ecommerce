@@ -6,7 +6,11 @@ import { BiLockOpen } from "react-icons/bi";
 import FaceIcon from "@mui/icons-material/Face";
 import { loginUser } from "../../api/user";
 import { useDispatch } from "react-redux";
-import { setUserRequest, setUserSuccess } from "../../redux/userSlice";
+import {
+  setUserFail,
+  setUserRequest,
+  setUserSuccess,
+} from "../../redux/userSlice";
 import { useNavigate } from "react-router-dom";
 const LoginSignUp = () => {
   const [loginEmail, setLoginEmail] = useState("");
@@ -46,7 +50,9 @@ const LoginSignUp = () => {
       console.log(response);
       dispatch(setUserSuccess(response));
       navigate("/");
+      window.location.reload(true);
     } catch (error) {
+      dispatch(setUserFail(error));
       console.log(error);
     }
   };
