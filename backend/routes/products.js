@@ -3,7 +3,7 @@ const router = express.Router();
 const productsController = require("../controllers/products");
 const { isAuthenticated, isAdmin } = require("../middlewares/auth");
 
-router.get("/allProducts", productsController.getAllProducts);
+router.get("/allProducts", isAuthenticated, productsController.getAllProducts);
 router.post(
   "/create",
   isAuthenticated,
@@ -22,7 +22,11 @@ router.delete(
   isAdmin,
   productsController.deleteProduct
 );
-router.post("/get-product-by-id/:id", productsController.getProductById);
+router.post(
+  "/get-product-by-id/:id",
+  isAuthenticated,
+  productsController.getProductById
+);
 router.post(
   "/review/:id",
   isAuthenticated,
