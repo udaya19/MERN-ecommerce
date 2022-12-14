@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Carousel from "react-material-ui-carousel";
 import "./ProductDetails.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,6 +28,21 @@ const ProductDetails = () => {
     value: product.ratings,
     isHalf: true,
     size: window.innerWidth < 600 ? 20 : 25,
+  };
+  const [quantity, setQuantity] = useState(1);
+  const increaseQuantity = () => {
+    if (product.stock <= quantity) {
+      return message.warning("Product limit reached");
+    }
+    const qty = quantity + 1;
+    setQuantity(qty);
+  };
+  const decreaseQuantity = () => {
+    if (quantity <= 1) {
+      return message.warning("Product quantity cannot be less than 1");
+    }
+    const qty = quantity - 1;
+    setQuantity(qty);
   };
   useEffect(() => {
     const getDetailsOfProduct = async () => {
@@ -81,15 +96,15 @@ const ProductDetails = () => {
                 <h1>{`₹${product.price}`}</h1>
                 <div className="detailsBlock-3-1">
                   <div className="detailsBlock-3-1-1">
-                    <button>-</button>
-                    <input type="number" value="1" />
-                    <button>+</button>
+                    <button onClick={decreaseQuantity}>-</button>
+                    <input readOnly type="number" value={quantity} />
+                    <button onClick={increaseQuantity}>+</button>
                   </div>
                   <button>Add to Cart</button>
                 </div>
                 <p>
                   Status:{" "}
-                  <b className={product.Stock < 1 ? "redColor" : "greenColor"}>
+                  <b className={product.stock < 1 ? "redColor" : "greenColor"}>
                     {product.Stock < 1 ? "Out Of Stock" : "In Stock"}
                   </b>
                 </p>
