@@ -20,6 +20,10 @@ const userSchema = new mongoose.Schema(
       required: [true, "Please enter your password"],
       select: false,
     },
+    cart: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cart",
+    },
     avatar: {
       public_id: {
         type: String,
