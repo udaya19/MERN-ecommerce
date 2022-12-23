@@ -108,3 +108,29 @@ exports.deleteItemFromCart = async (req, res) => {
     });
   }
 };
+
+exports.getCartItems = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id);
+    if (user.cart) {
+      const cart = await Cart.findById(user.cart);
+      if (cart.cartItems.length > 0) {
+        return res.json(200, {
+          success: true,
+          cartItem: cart.cartItems,
+        });
+      }
+      if (cart.cartItems.length === 0) {
+        return res.json(200, {
+          success: true,
+          message: "Cart is empty",
+        });
+      }
+    }
+  } catch (error) {
+    return res.json(500, {
+      success: false,
+      error: error.message,
+    });
+  }
+};

@@ -12,6 +12,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUserRequest, loadUserSuccess } from "./redux/loadUser";
 import { loadUser } from "./api/user";
+import { getUserCartItems } from "./redux/cartSlice";
+import { getUserCart } from "./api/cart";
 
 function App() {
   const { isAuthenticated } = useSelector((state) => state.loggedInUser);
@@ -26,7 +28,16 @@ function App() {
         console.log(error);
       }
     };
+    const userCartItems = async () => {
+      try {
+        const response = await getUserCart();
+        dispatch(getUserCartItems(response));
+      } catch (error) {
+        console.log(error);
+      }
+    };
     getUser();
+    if (localStorage.getItem("token")) userCartItems();
   }, [dispatch]);
   return (
     <div className="App">

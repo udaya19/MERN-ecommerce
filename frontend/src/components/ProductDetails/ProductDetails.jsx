@@ -14,6 +14,7 @@ import ReviewCard from "./ReviewCard";
 import Loader from "../layout/Loader/Loader";
 import { message } from "antd";
 // import Loader from "../layout/Loader/Loader";
+import { addProductToCart } from "../../api/cart";
 
 const ProductDetails = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,14 @@ const ProductDetails = () => {
     }
     const qty = quantity - 1;
     setQuantity(qty);
+  };
+  const addToCart = async () => {
+    try {
+      const response = await addProductToCart(quantity, product._id);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     const getDetailsOfProduct = async () => {
@@ -100,7 +109,7 @@ const ProductDetails = () => {
                     <input readOnly type="number" value={quantity} />
                     <button onClick={increaseQuantity}>+</button>
                   </div>
-                  <button>Add to Cart</button>
+                  <button onClick={addToCart}>Add to Cart</button>
                 </div>
                 <p>
                   Status:{" "}
